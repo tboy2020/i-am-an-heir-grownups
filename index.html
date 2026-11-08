@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1e33">
+<title>I Am an Heir — Grown-ups</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="I Am an Heir">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0f1e33; --navy2:#16263f; --card:#1c2f4a; --card2:#223a5c;
+    --gold:#e3bd5a; --gold-soft:#f2d892; --ink:#eaf1fb; --muted:#9fb3d1;
+    --line:rgba(227,189,90,.28);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Baloo 2',system-ui,sans-serif; color:var(--ink);
+    background:radial-gradient(1200px 700px at 50% -10%, #1a2d4a 0%, var(--navy) 55%, #0b1627 100%);
+    background-attachment:fixed; min-height:100vh; -webkit-text-size-adjust:100%;
+  }
+  .wrap{max-width:560px; margin:0 auto; padding:14px 16px calc(28px + env(safe-area-inset-bottom)); min-height:100vh;}
+  .screen{display:none; animation:fade .35s ease;}
+  .screen.on{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+  .serif{font-family:'Fraunces',Georgia,serif;}
+
+  .top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin:4px 0 14px;}
+  .mbadge{font-size:.82rem; font-weight:700; color:var(--navy); background:linear-gradient(180deg,var(--gold-soft),var(--gold)); padding:7px 12px; border-radius:999px; box-shadow:0 2px 10px rgba(227,189,90,.25); line-height:1;}
+  .who{display:flex; align-items:center; gap:8px;}
+  .avatar{width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.3rem; background:var(--card2); border:2px solid var(--line); cursor:pointer;}
+  .iconbtn{background:var(--card); border:1px solid var(--line); color:var(--ink); width:40px; height:40px; border-radius:50%; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+
+  .splash{text-align:center; padding-top:8vh;}
+  .crown{font-size:4.2rem; line-height:1; filter:drop-shadow(0 6px 18px rgba(227,189,90,.4));}
+  .splash h1{font-family:'Fraunces',serif; font-weight:700; font-size:2.6rem; margin:.3em 0 .1em; color:var(--gold-soft); letter-spacing:.5px;}
+  .splash .sub{color:var(--muted); font-weight:600; margin:0 0 .2em; font-size:1.02rem;}
+  .verse-tag{color:var(--gold); font-family:'Fraunces',serif; font-style:italic; font-size:1rem; margin:18px auto 0; max-width:380px; line-height:1.5;}
+  .ref-tag{color:var(--muted); font-size:.85rem; margin-top:4px; font-weight:700;}
+
+  .btn{display:block; width:100%; border:none; border-radius:20px; padding:18px 18px; font-family:'Baloo 2',sans-serif; font-weight:800; font-size:1.12rem; cursor:pointer; margin:12px 0; transition:transform .08s ease, box-shadow .2s;}
+  .btn:active{transform:translateY(2px) scale(.995);}
+  .btn-gold{background:linear-gradient(180deg,var(--gold-soft),var(--gold)); color:#43350d; box-shadow:0 8px 22px rgba(227,189,90,.3);}
+  .btn-soft{background:var(--card); color:var(--ink); border:1px solid var(--line);}
+  .btn-row{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .btn-row .btn{margin:0; font-size:1.02rem; padding:20px 10px;}
+  .mini{display:flex; gap:14px; justify-content:center; margin-top:14px;}
+  .mini a{color:var(--muted); font-weight:700; font-size:.9rem; text-decoration:none; cursor:pointer; padding:8px;}
+  .mini a:active{color:var(--gold);}
+
+  .card{background:linear-gradient(180deg,var(--card),var(--card2)); border:1px solid var(--line); border-radius:28px; padding:26px 22px; box-shadow:0 14px 40px rgba(0,0,0,.35); position:relative; overflow:hidden;}
+  .card .theme-pill{display:inline-flex; align-items:center; gap:7px; font-weight:700; font-size:.82rem; padding:6px 12px; border-radius:999px; margin-bottom:14px;}
+  .say{font-family:'Fraunces',serif; font-weight:600; font-size:1.42rem; line-height:1.4; margin:0 0 12px;}
+  .mean{color:var(--muted); font-size:.95rem; font-weight:600; margin:0 0 14px; line-height:1.45;}
+  .ref{color:var(--gold); font-weight:800; font-size:.98rem; letter-spacing:.3px;}
+  .reveal{margin-top:12px;}
+  .reveal button{background:transparent; border:1px dashed var(--line); color:var(--gold-soft); border-radius:12px; padding:9px 12px; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:.86rem; cursor:pointer;}
+  .kjv{margin-top:12px; color:var(--ink); background:rgba(0,0,0,.18); border-left:3px solid var(--gold); padding:12px 14px; border-radius:10px; font-family:'Fraunces',serif; font-style:italic; font-size:.95rem; line-height:1.5; display:none;}
+  .kjv.on{display:block;}
+
+  .crowns{display:flex; gap:10px; justify-content:center; margin:16px 0 6px;}
+  .crowns span{font-size:1.8rem; filter:grayscale(1) opacity(.35); transition:transform .25s, filter .25s;}
+  .crowns span.lit{filter:none; transform:scale(1.15);}
+  .streak{text-align:center; color:var(--muted); font-weight:700; font-size:.9rem; margin-top:2px;}
+  .streak b{color:var(--gold-soft);}
+
+  .section-h{font-family:'Fraunces',serif; font-weight:700; font-size:1.5rem; margin:6px 0 2px;}
+  .section-s{color:var(--muted); font-weight:600; margin:0 0 16px; font-size:.95rem;}
+
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .tile{background:var(--card); border:1px solid var(--line); border-radius:20px; padding:16px 12px; text-align:center; cursor:pointer; transition:transform .08s, background .2s;}
+  .tile:active{transform:translateY(2px);}
+  .tile .emo{font-size:1.8rem; display:block; margin-bottom:6px;}
+  .tile .lab{font-weight:700; font-size:.9rem; line-height:1.15;}
+
+  .back{display:inline-flex; align-items:center; gap:7px; background:transparent; border:none; color:var(--muted); font-family:'Baloo 2',sans-serif; font-weight:700; font-size:1rem; cursor:pointer; padding:6px 0; margin-bottom:8px;}
+  .back:active{color:var(--gold);}
+
+  .inp{width:100%; background:var(--card); border:1px solid var(--line); color:var(--ink); border-radius:16px; padding:15px 16px; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:1.1rem; margin:8px 0 4px;}
+  .inp::placeholder{color:#6f84a6;}
+  .avatars{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:12px 0;}
+  .ava{width:52px; height:52px; border-radius:50%; background:var(--card2); border:2px solid transparent; display:flex; align-items:center; justify-content:center; font-size:1.5rem; cursor:pointer;}
+  .ava.sel{border-color:var(--gold); background:#2a456b;}
+  .champ-list{display:flex; flex-direction:column; gap:10px; margin:6px 0 16px;}
+  .champ{display:flex; align-items:center; gap:12px; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:12px 14px; cursor:pointer;}
+  .champ .av{width:42px;height:42px;border-radius:50%;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
+  .champ .nm{font-weight:800; font-size:1.1rem;}
+  .champ .x{margin-left:auto; color:var(--muted); font-size:1.1rem; padding:6px;}
+
+  .settings-row{display:flex; align-items:center; justify-content:space-between; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 16px; margin:10px 0; font-weight:700;}
+  .toggle{width:52px; height:30px; border-radius:999px; background:#2a3c58; position:relative; cursor:pointer; border:1px solid var(--line);}
+  .toggle .dot{position:absolute; top:3px; left:3px; width:22px; height:22px; border-radius:50%; background:var(--muted); transition:.2s;}
+  .toggle.on{background:linear-gradient(180deg,var(--gold-soft),var(--gold));}
+  .toggle.on .dot{left:26px; background:#fff;}
+
+  .confetti{position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:50;}
+  .confetti span{position:absolute; font-size:1.4rem; animation:fall 1.5s ease-in forwards;}
+  @keyframes fall{0%{transform:translateY(-20px) rotate(0); opacity:1;} 100%{transform:translateY(100vh) rotate(360deg); opacity:0;}}
+  .amen{position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:60; background:rgba(8,16,30,.72);}
+  .amen.on{display:flex;}
+  .amen .box{background:linear-gradient(180deg,var(--card),var(--card2)); border:1px solid var(--gold); border-radius:24px; padding:30px 26px; text-align:center; max-width:330px;}
+  .amen .big{font-family:'Fraunces',serif; font-size:2.2rem; color:var(--gold-soft); font-weight:700;}
+  .foot{text-align:center; color:#5e749a; font-size:.78rem; margin-top:22px; font-weight:600;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section id="splash" class="screen on">
+    <div class="splash">
+      <div class="crown">👑</div>
+      <h1>I Am an Heir</h1>
+      <p class="sub">Daily Declarations for Grown-ups</p>
+      <p class="verse-tag serif">"...heirs of God, and joint-heirs with Christ."</p>
+      <p class="ref-tag">ROMANS 8:17 · KJV</p>
+      <button class="btn btn-gold" style="margin-top:26px;" onclick="begin()">Begin 👑</button>
+    </div>
+    <p class="foot">Declare who you are. Hear it. Believe it.<br>For as he thinketh in his heart, so is he. — Proverbs 23:7</p>
+  </section>
+
+  <section id="setup" class="screen">
+    <button class="back" onclick="go('home')" id="setupBack" style="display:none;">‹ Back</button>
+    <h2 class="section-h">Who's declaring?</h2>
+    <p class="section-s">Add yourself (and your spouse, if you like) — each keeps their own daily walk.</p>
+    <div id="champList" class="champ-list"></div>
+    <input id="nameInp" class="inp" placeholder="Your name" maxlength="22" autocomplete="off">
+    <div id="avaPick" class="avatars"></div>
+    <button class="btn btn-gold" onclick="addChampion()">Add 👑</button>
+  </section>
+
+  <section id="home" class="screen">
+    <div class="top">
+      <span class="mbadge" id="monthBadge">—</span>
+      <div class="who">
+        <div class="iconbtn" onclick="go('settings')" title="Settings">⚙</div>
+        <div class="avatar" id="homeAva" onclick="switchChampion()" title="Switch person">👑</div>
+      </div>
+    </div>
+
+    <div class="card" id="todayCard">
+      <span class="theme-pill" id="todayPill">Today</span>
+      <p class="say serif" id="todaySay">—</p>
+      <p class="mean" id="todayMean"></p>
+      <p class="ref" id="todayRef"></p>
+      <div class="reveal"><button onclick="toggleKjv('todayKjv')">📖 Show the Scripture</button></div>
+      <div class="kjv" id="todayKjv"></div>
+      <div class="crowns" id="crowns">
+        <span data-i="0">👑</span><span data-i="1">👑</span><span data-i="2">👑</span>
+      </div>
+      <button class="btn btn-gold" style="margin-top:6px;" onclick="sayToday()">🔊 Declare it</button>
+      <p class="streak" id="streak"></p>
+    </div>
+
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn btn-soft" onclick="openIdentity()">👑 Who I Am</button>
+      <button class="btn btn-soft" onclick="go('needs')">🕊️ What I Need</button>
+    </div>
+    <div class="mini"><a onclick="go('browse')">✨ Explore all areas</a></div>
+  </section>
+
+  <section id="cardView" class="screen">
+    <button class="back" onclick="go('home')">‹ Home</button>
+    <h2 class="section-h" id="cvTitle">—</h2>
+    <p class="section-s" id="cvSub"></p>
+    <div class="card">
+      <span class="theme-pill" id="cvPill"></span>
+      <p class="say serif" id="cvSay">—</p>
+      <p class="mean" id="cvMean"></p>
+      <p class="ref" id="cvRef"></p>
+      <div class="reveal"><button onclick="toggleKjv('cvKjv')">📖 Show the Scripture</button></div>
+      <div class="kjv" id="cvKjv"></div>
+    </div>
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn btn-gold" onclick="speakCurrent()">🔊 Declare it</button>
+      <button class="btn btn-soft" onclick="nextCard()">Another ✨</button>
+    </div>
+  </section>
+
+  <section id="needs" class="screen">
+    <button class="back" onclick="go('home')">‹ Home</button>
+    <h2 class="section-h">What do I need today?</h2>
+    <p class="section-s">Name where you are, and stand on God's Word for it.</p>
+    <div class="grid" id="needGrid"></div>
+  </section>
+
+  <section id="browse" class="screen">
+    <button class="back" onclick="go('home')">‹ Home</button>
+    <h2 class="section-h">Explore all areas</h2>
+    <p class="section-s">Every part of your life, under His Word.</p>
+    <div class="grid" id="themeGrid"></div>
+  </section>
+
+  <section id="settings" class="screen">
+    <button class="back" onclick="go('home')">‹ Home</button>
+    <h2 class="section-h">Settings</h2>
+    <div class="settings-row">
+      <span>🔊 Voice on</span>
+      <div class="toggle" id="voiceToggle" onclick="toggleVoice()"><div class="dot"></div></div>
+    </div>
+    <button class="btn btn-soft" onclick="go('setup')">👑 Manage people</button>
+    <button class="btn btn-soft" onclick="resetStreaks()">↺ Reset streaks</button>
+    <p class="foot" style="margin-top:18px;">I Am an Heir · 386 KJV declarations<br>Built for the Kingdom, with love. 🙏</p>
+  </section>
+
+</div>
+
+<div class="confetti" id="confetti"></div>
+<div class="amen" id="amen"><div class="box"><div class="big">Amen! 👑</div><p style="color:var(--muted);font-weight:700;margin:.5em 0 0;" id="amenMsg">That word is yours today.</p></div></div>
+
+<script src="app_data.js"></script>
+<script>
+(function(){
+  "use strict";
+  var DECLS = window.HEIR_DECLS || [];
+  var PLAN = window.HEIR_PLAN || [];
+
+  var THEME_META = {
+    'identity-in-christ':{label:'Who I Am in Christ',emo:'👑',color:'#e3bd5a'},
+    'gods-love':{label:'Loved by God',emo:'❤️',color:'#ff8fb1'},
+    'gods-presence':{label:'God With Me',emo:'🕊️',color:'#7ec8ff'},
+    'victory-authority':{label:'Victory & Authority',emo:'🏆',color:'#ff9f45'},
+    'protection-safety':{label:'Protected & Kept',emo:'🛡️',color:'#6aa9ff'},
+    'provision-finances':{label:'Provision & Finances',emo:'💵',color:'#7bd88f'},
+    'work-excellence':{label:'Work & Excellence',emo:'💼',color:'#b79cff'},
+    'marriage':{label:'Marriage',emo:'💍',color:'#ff9ec4'},
+    'parenting':{label:'Parenting & Household',emo:'🧒',color:'#ffd56b'},
+    'relationships-forgiveness':{label:'Relationships & Forgiveness',emo:'🤝',color:'#6fe0c0'},
+    'peace-anxiety':{label:'Peace Over Anxiety',emo:'🌿',color:'#86e0c4'},
+    'health-healing':{label:'Health & Healing',emo:'❤️‍🩹',color:'#ff7d9c'},
+    'strength-renewal':{label:'Strength & Renewal',emo:'🦅',color:'#ff7a59'},
+    'wisdom-guidance':{label:'Wisdom & Guidance',emo:'🧭',color:'#9aa6ff'},
+    'faith-trust':{label:'Faith & Trust',emo:'🔥',color:'#ffb067'},
+    'prayer':{label:'Prayer',emo:'🙏',color:'#c89bff'},
+    'purpose-calling':{label:'Purpose & Calling',emo:'🎯',color:'#ffcf5c'},
+    'comfort-hope':{label:'Comfort & Hope',emo:'🌅',color:'#ffa8c3'},
+    'perseverance-waiting':{label:'Perseverance & Waiting',emo:'⏳',color:'#9ad0ff'},
+    'holiness-victory-over-sin':{label:'Holiness & Victory',emo:'✝️',color:'#d9c7ff'},
+    'thankfulness-praise':{label:'Thankfulness & Praise',emo:'🙌',color:'#ffcf5c'},
+    'spiritual-warfare':{label:'Spiritual Warfare',emo:'⚔️',color:'#ff7a6b'}
+  };
+
+  var NEEDS = [
+    {emo:'😟',lab:"Fear or anxiety",themes:['peace-anxiety','protection-safety']},
+    {emo:'💵',lab:"Financial pressure",themes:['provision-finances']},
+    {emo:'💍',lab:"My marriage",themes:['marriage']},
+    {emo:'🧒',lab:"My children",themes:['parenting']},
+    {emo:'💼',lab:"At work",themes:['work-excellence']},
+    {emo:'❤️‍🩹',lab:"Sick / need healing",themes:['health-healing']},
+    {emo:'😮‍💨',lab:"Weary / drained",themes:['strength-renewal']},
+    {emo:'🧭',lab:"A big decision",themes:['wisdom-guidance']},
+    {emo:'💔',lab:"Grieving / heartbroken",themes:['comfort-hope']},
+    {emo:'⚔️',lab:"Under attack",themes:['spiritual-warfare','protection-safety']},
+    {emo:'⏳',lab:"Waiting on God",themes:['perseverance-waiting']},
+    {emo:'🕊️',lab:"Need His presence",themes:['gods-presence']},
+    {emo:'😔',lab:"Discouraged",themes:['comfort-hope','strength-renewal']},
+    {emo:'🎯',lab:"My purpose",themes:['purpose-calling']},
+    {emo:'✝️',lab:"To overcome sin",themes:['holiness-victory-over-sin']},
+    {emo:'🤝',lab:"A hard relationship",themes:['relationships-forgiveness']},
+    {emo:'🙌',lab:"I'm thankful",themes:['thankfulness-praise']},
+    {emo:'❤️',lab:"Know God loves me",themes:['gods-love']},
+    {emo:'🔥',lab:"Need more faith",themes:['faith-trust']},
+    {emo:'🏆',lab:"Need the victory",themes:['victory-authority']}
+  ];
+
+  var AVAS = ['👑','🦁','🕊️','✝️','⭐','🔥','🌿','🛡️','🕯️','🌅'];
+
+  var store = { champions:[], activeId:'', progress:{}, voice:true };
+  function load(){
+    try{ var s=localStorage.getItem('heir_adult_v1'); if(s) store=JSON.parse(s); }catch(e){}
+    if(!store.champions) store.champions=[];
+    if(!store.progress) store.progress={};
+    if(typeof store.voice==='undefined') store.voice=true;
+  }
+  function save(){ try{ localStorage.setItem('heir_adult_v1', JSON.stringify(store)); }catch(e){} }
+
+  function todayStr(){ var d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+  function yestStr(){ var d=new Date(); d.setDate(d.getDate()-1); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+
+  function activeChamp(){ var i; for(i=0;i<store.champions.length;i++){ if(store.champions[i].id===store.activeId) return store.champions[i]; } return store.champions[0]||null; }
+  function prog(){
+    var c=activeChamp(); if(!c) return null;
+    if(!store.progress[c.id]) store.progress[c.id]={streak:0,lastComplete:'',sayDate:'',says:0};
+    var p=store.progress[c.id];
+    if(p.sayDate!==todayStr()){ p.says=0; p.sayDate=todayStr(); }
+    return p;
+  }
+
+  function go(id){
+    var s=document.getElementsByClassName('screen'), i;
+    for(i=0;i<s.length;i++){ s[i].className='screen'; }
+    var el=document.getElementById(id); if(el) el.className='screen on';
+    window.scrollTo(0,0);
+    if(id==='home') renderHome();
+    if(id==='needs') renderNeeds();
+    if(id==='browse') renderThemes();
+    if(id==='setup') renderSetup();
+    if(id==='settings'){ var vt=document.getElementById('voiceToggle'); vt.className='toggle'+(store.voice?' on':''); }
+  }
+  window.go=go;
+
+  function begin(){ load(); if(store.champions.length) go('home'); else go('setup'); }
+  window.begin=begin;
+
+  var pickedAva = AVAS[0];
+  function renderSetup(){
+    document.getElementById('setupBack').style.display = store.champions.length ? 'inline-flex':'none';
+    var list=document.getElementById('champList'); list.innerHTML=''; var i;
+    for(i=0;i<store.champions.length;i++){
+      (function(c){
+        var row=document.createElement('div'); row.className='champ';
+        row.innerHTML='<div class="av">'+c.emo+'</div><div class="nm">'+esc(c.name)+'</div><div class="x">✕</div>';
+        row.onclick=function(ev){ if(ev.target && ev.target.className==='x'){ removeChampion(c.id); return; } store.activeId=c.id; save(); go('home'); };
+        list.appendChild(row);
+      })(store.champions[i]);
+    }
+    var ap=document.getElementById('avaPick'); ap.innerHTML='';
+    for(i=0;i<AVAS.length;i++){
+      (function(a){ var d=document.createElement('div'); d.className='ava'+(a===pickedAva?' sel':''); d.textContent=a; d.onclick=function(){ pickedAva=a; renderSetup(); }; ap.appendChild(d); })(AVAS[i]);
+    }
+  }
+  function addChampion(){
+    var nm=document.getElementById('nameInp').value.replace(/\s+/g,' ').trim();
+    if(!nm){ document.getElementById('nameInp').focus(); return; }
+    var id='c'+(new Date().getTime());
+    store.champions.push({id:id,name:nm,emo:pickedAva}); store.activeId=id; save();
+    document.getElementById('nameInp').value=''; go('home');
+  }
+  window.addChampion=addChampion;
+  function removeChampion(id){
+    var arr=[],i; for(i=0;i<store.champions.length;i++){ if(store.champions[i].id!==id) arr.push(store.champions[i]); }
+    store.champions=arr; if(store.progress[id]) delete store.progress[id];
+    if(store.activeId===id) store.activeId=store.champions.length?store.champions[0].id:'';
+    save(); renderSetup();
+  }
+  function switchChampion(){
+    if(store.champions.length<=1){ go('setup'); return; }
+    var idx=0,i; for(i=0;i<store.champions.length;i++){ if(store.champions[i].id===store.activeId) idx=i; }
+    store.activeId=store.champions[(idx+1)%store.champions.length].id; save(); renderHome();
+  }
+  window.switchChampion=switchChampion;
+
+  function monthPlan(m){ var i; for(i=0;i<PLAN.length;i++){ if(PLAN[i].month===m) return PLAN[i]; } return null; }
+  function poolForMonth(m){
+    var plan=monthPlan(m); var keys=plan?plan.themeKeys:['identity-in-christ']; var pool=[], seen={}, k,i;
+    for(k=0;k<keys.length;k++){ for(i=0;i<DECLS.length;i++){ if(DECLS[i].theme===keys[k] && !seen[DECLS[i].id]){ seen[DECLS[i].id]=1; pool.push(DECLS[i]); } } }
+    if(!pool.length) pool=DECLS.slice();
+    return pool;
+  }
+  function todaysDecl(){ var d=new Date(), m=d.getMonth()+1, day=d.getDate(); var pool=poolForMonth(m); return pool[(day-1)%pool.length]; }
+
+  var currentToday=null;
+  function renderHome(){
+    var c=activeChamp(); if(!c){ go('setup'); return; }
+    var d=new Date(), m=d.getMonth()+1, plan=monthPlan(m);
+    document.getElementById('monthBadge').textContent = plan?plan.title:'Today';
+    document.getElementById('homeAva').textContent=c.emo;
+    var t=todaysDecl(); currentToday=t;
+    var tm=THEME_META[t.theme]||{label:'Today',emo:'👑',color:'#e3bd5a'};
+    var pill=document.getElementById('todayPill'); pill.textContent=tm.emo+' '+tm.label;
+    pill.style.background='rgba(255,255,255,.06)'; pill.style.color=tm.color; pill.style.border='1px solid '+tm.color;
+    document.getElementById('todaySay').textContent=t.say;
+    document.getElementById('todayMean').textContent=t.mean||'';
+    document.getElementById('todayRef').textContent='— '+t.ref+' (KJV)';
+    var kjv=document.getElementById('todayKjv'); kjv.textContent='"'+t.kjv+'"'; kjv.className='kjv';
+    var rb=kjv.previousElementSibling.getElementsByTagName('button')[0]; if(rb) rb.textContent='📖 Show the Scripture';
+    var p=prog(); paintCrowns(p?p.says:0);
+    var st=document.getElementById('streak');
+    if(p && p.streak>0){ st.innerHTML='<b>'+esc(c.name)+'</b> has declared <b>'+p.streak+'</b> day'+(p.streak===1?'':'s')+' in a row 👑🔥'; }
+    else { st.innerHTML='Declare it three times, '+esc(c.name)+' — let it take root in your heart.'; }
+  }
+  function paintCrowns(n){ var cs=document.getElementById('crowns').getElementsByTagName('span'),i; for(i=0;i<cs.length;i++){ cs[i].className=(i<n)?'lit':''; } }
+
+  function sayToday(){
+    if(!currentToday) return;
+    speak(currentToday.say);
+    var p=prog(); if(!p) return;
+    if(p.says<3) p.says++;
+    paintCrowns(p.says);
+    if(p.says>=3 && p.lastComplete!==todayStr()){
+      if(p.lastComplete===yestStr()) p.streak=(p.streak||0)+1; else p.streak=1;
+      p.lastComplete=todayStr(); celebrate(); renderHome();
+    }
+    save();
+  }
+  window.sayToday=sayToday;
+
+  var cvPool=[], cvIdx=0;
+  function openCards(pool, title, sub){ if(!pool||!pool.length) return; cvPool=pool; cvIdx=0; document.getElementById('cvTitle').textContent=title; document.getElementById('cvSub').textContent=sub||''; go('cardView'); renderCard(true); }
+  function renderCard(doSpeak){
+    var t=cvPool[cvIdx]; if(!t) return;
+    var tm=THEME_META[t.theme]||{label:'',emo:'👑',color:'#e3bd5a'};
+    var pill=document.getElementById('cvPill'); pill.textContent=tm.emo+' '+tm.label;
+    pill.style.background='rgba(255,255,255,.06)'; pill.style.color=tm.color; pill.style.border='1px solid '+tm.color;
+    document.getElementById('cvSay').textContent=t.say;
+    document.getElementById('cvMean').textContent=t.mean||'';
+    document.getElementById('cvRef').textContent='— '+t.ref+' (KJV)';
+    var kjv=document.getElementById('cvKjv'); kjv.textContent='"'+t.kjv+'"'; kjv.className='kjv';
+    var rb=kjv.previousElementSibling.getElementsByTagName('button')[0]; if(rb) rb.textContent='📖 Show the Scripture';
+    if(doSpeak) speak(t.say);
+  }
+  function nextCard(){ cvIdx=(cvIdx+1)%cvPool.length; renderCard(true); }
+  window.nextCard=nextCard;
+  function speakCurrent(){ var t=cvPool[cvIdx]; if(t) speak(t.say); }
+  window.speakCurrent=speakCurrent;
+
+  function byThemes(keys){
+    var pool=[],seen={},k,i;
+    for(k=0;k<keys.length;k++){ for(i=0;i<DECLS.length;i++){ if(DECLS[i].theme===keys[k] && !seen[DECLS[i].id]){ seen[DECLS[i].id]=1; pool.push(DECLS[i]); } } }
+    return shuffle(pool);
+  }
+  function openIdentity(){ openCards(byThemes(['identity-in-christ']), '👑 Who I Am in Christ', 'This is who you are — settled, in Him.'); }
+  window.openIdentity=openIdentity;
+
+  function renderNeeds(){
+    var g=document.getElementById('needGrid'); g.innerHTML=''; var i;
+    for(i=0;i<NEEDS.length;i++){
+      (function(f){ var t=document.createElement('div'); t.className='tile'; t.innerHTML='<span class="emo">'+f.emo+'</span><span class="lab">'+esc(f.lab)+'</span>'; t.onclick=function(){ openCards(byThemes(f.themes), f.emo+' '+f.lab, "Stand on this."); }; g.appendChild(t); })(NEEDS[i]);
+    }
+  }
+  function renderThemes(){
+    var g=document.getElementById('themeGrid'); g.innerHTML=''; var keys=[],k;
+    for(k in THEME_META){ if(THEME_META.hasOwnProperty(k)) keys.push(k); }
+    var i; for(i=0;i<keys.length;i++){
+      (function(key){ var tm=THEME_META[key]; var t=document.createElement('div'); t.className='tile'; t.innerHTML='<span class="emo">'+tm.emo+'</span><span class="lab">'+esc(tm.label)+'</span>'; t.onclick=function(){ openCards(byThemes([key]), tm.emo+' '+tm.label, ''); }; g.appendChild(t); })(keys[i]);
+    }
+  }
+
+  function toggleVoice(){ store.voice=!store.voice; save(); document.getElementById('voiceToggle').className='toggle'+(store.voice?' on':''); if(store.voice) speak('Voice on.'); }
+  window.toggleVoice=toggleVoice;
+  function resetStreaks(){ store.progress={}; save(); go('home'); }
+  window.resetStreaks=resetStreaks;
+
+  var voices=[], chosen=null;
+  function pickVoice(){
+    try{ voices=window.speechSynthesis.getVoices()||[]; }catch(e){ voices=[]; }
+    var pref=['Samantha','Google US English','Microsoft Aria','Microsoft Zira','Daniel','Google UK English Male','Alex'];
+    var i,j;
+    for(j=0;j<pref.length;j++){ for(i=0;i<voices.length;i++){ if(voices[i].name && voices[i].name.indexOf(pref[j])>=0){ chosen=voices[i]; return; } } }
+    for(i=0;i<voices.length;i++){ if(voices[i].lang && voices[i].lang.indexOf('en')===0){ chosen=voices[i]; return; } }
+    chosen=voices[0]||null;
+  }
+  function speak(text){
+    if(!store.voice) return;
+    if(!('speechSynthesis' in window)) return;
+    try{ window.speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(text); if(chosen) u.voice=chosen; u.rate=0.94; u.pitch=1.0; u.volume=1; window.speechSynthesis.speak(u); }catch(e){}
+  }
+  if('speechSynthesis' in window){ pickVoice(); window.speechSynthesis.onvoiceschanged=pickVoice; }
+
+  function celebrate(){
+    var c=activeChamp();
+    document.getElementById('amenMsg').textContent = c ? ('That word is yours today, '+c.name+'.') : 'That word is yours today.';
+    var a=document.getElementById('amen'); a.className='amen on'; confetti();
+    setTimeout(function(){ a.className='amen'; }, 1700);
+  }
+  function confetti(){
+    var box=document.getElementById('confetti'); var bits=['👑','✨','⭐','🌟','🔥'],i;
+    for(i=0;i<22;i++){ (function(){ var s=document.createElement('span'); s.textContent=bits[Math.floor(Math.random()*bits.length)]; s.style.left=(Math.random()*100)+'%'; s.style.animationDelay=(Math.random()*0.4)+'s'; s.style.fontSize=(1+Math.random()*1.2)+'rem'; box.appendChild(s); setTimeout(function(){ if(s.parentNode) s.parentNode.removeChild(s); },1800); })(); }
+  }
+
+  function toggleKjv(id){
+    var el=document.getElementById(id); var btn=el.previousElementSibling.getElementsByTagName('button')[0];
+    if(el.className.indexOf('on')>=0){ el.className='kjv'; if(btn) btn.textContent='📖 Show the Scripture'; }
+    else { el.className='kjv on'; if(btn) btn.textContent='📖 Hide the Scripture'; }
+  }
+  window.toggleKjv=toggleKjv;
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function shuffle(a){ var arr=a.slice(),i,j,t; for(i=arr.length-1;i>0;i--){ j=Math.floor(Math.random()*(i+1)); t=arr[i]; arr[i]=arr[j]; arr[j]=t; } return arr; }
+
+  load();
+  if('serviceWorker' in navigator){ window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
+})();
+</script>
+</body>
+</html>

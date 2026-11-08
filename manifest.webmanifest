@@ -1,0 +1,17 @@
+{
+  "name": "I Am an Heir — Grown-ups",
+  "short_name": "I Am an Heir",
+  "description": "Daily KJV declarations for grown-ups — who you are in Christ, and His Word for every area of life, declared out loud.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f1e33",
+  "theme_color": "#0f1e33",
+  "categories": ["lifestyle", "education", "books"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
