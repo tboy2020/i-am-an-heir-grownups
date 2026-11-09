@@ -1,9 +1,10 @@
 /* I Am an Heir (Grown-ups) - offline app shell */
-var CACHE = 'heir-adult-v1';
+var CACHE = 'heir-adult-v2';
 var ASSETS = [
   './',
   './index.html',
   './app_data.js',
+  './install-button.js',
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',
