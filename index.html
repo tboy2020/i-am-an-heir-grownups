@@ -379,7 +379,7 @@
 
   function sayToday(){
     if(!currentToday) return;
-    speak(currentToday.say);
+    speak(sayDecl(currentToday));
     var p=prog(); if(!p) return;
     if(p.says<3) p.says++;
     paintCrowns(p.says);
@@ -403,11 +403,11 @@
     document.getElementById('cvRef').textContent='— '+t.ref+' (KJV)';
     var kjv=document.getElementById('cvKjv'); kjv.textContent='"'+t.kjv+'"'; kjv.className='kjv';
     var rb=kjv.previousElementSibling.getElementsByTagName('button')[0]; if(rb) rb.textContent='📖 Show the Scripture';
-    if(doSpeak) speak(t.say);
+    if(doSpeak) speak(sayDecl(t));
   }
   function nextCard(){ cvIdx=(cvIdx+1)%cvPool.length; renderCard(true); }
   window.nextCard=nextCard;
-  function speakCurrent(){ var t=cvPool[cvIdx]; if(t) speak(t.say); }
+  function speakCurrent(){ var t=cvPool[cvIdx]; if(t) speak(sayDecl(t)); }
   window.speakCurrent=speakCurrent;
 
   function byThemes(keys){
@@ -453,6 +453,8 @@
     .replace(/(\d)\s*[-–—]\s*(\d)/g,'$1 to $2')
     .replace(/_{2,}/g,' , ')
     .replace(/\s+([,.;:!?])/g,'$1').replace(/,\s*([.!?;:])/g,'$1').replace(/\s+/g,' ').trim(); }
+  // Speak the declaration, then its verse reference ("First Peter 1 verse 3").
+  function sayDecl(o){ if(!o) return ''; var s=o.say||''; return o.ref ? s.replace(/[\s.;:,!?]+$/,'')+'. '+o.ref : s; }
   function speak(text){
     if(!store.voice) return;
     if(!('speechSynthesis' in window)) return;
